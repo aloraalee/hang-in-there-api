@@ -17,6 +17,10 @@ class Api::V1::PostersController < ApplicationController
     render json: Poster.update(params[:id], poster_params)
   end
 
+  def destroy
+    render json: Poster.delete(params[:id])
+  end
+
   private
     
   def poster_params
