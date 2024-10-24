@@ -4,10 +4,9 @@ class Api::V1::PostersController < ApplicationController
 
     posters = posters.where("price >= 99.99", params[:min_price]) if params[:min_price].present?
     posters = posters.where("price <= 99.99", params[:max_price]) if params[:max_price].present?
+
+    posters = posters.where("name ILIKE ?", "%#{params[:name]}%") if params[:name].present?
     
-    if params[:name].include?('ter')
-      posters = posters.where('name = ?', params[:name])
-    end
 
     if params[:sort] == "asc"
     sorted_asc = posters.sort_by(&:created_at)
