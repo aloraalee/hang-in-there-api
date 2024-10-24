@@ -92,6 +92,31 @@ RSpec.describe "Posters API", type: :request do
     expect(poster[:data][:attributes][:img_url]).to be_a(String)
   end
 
+
+  it 'creates a new poster' do
+
+    poster_attributes = {
+    name: "REGRET", 
+    description: "Hard work rarely pays off.", 
+    price: 89.00, 
+    year: 2018, 
+    vintage: true, 
+    img_url: "https://plus.unsplash.com/premium_photo-1661293818249-fddbddf07a5d"
+  }
+
+    post '/api/v1/posters#create', params: { poster: poster_attributes }
+
+    poster = JSON.parse(response.body, symbolize_names: true)[:data].first
+   
+    expect(poster[:attributes][:name]).to eq(poster_attributes[:name])
+    expect(poster[:attributes][:description]).to eq(poster_attributes[:description])
+    expect(poster[:attributes][:price]).to eq(poster_attributes[:price])
+    expect(poster[:attributes][:year]).to eq(poster_attributes[:year])
+    expect(poster[:attributes][:vintage]).to eq(poster_attributes[:vintage])
+    expect(poster[:attributes][:img_url]).to eq(poster_attributes[:img_url])
+  end
+
+
   it "can update an existing song" do
     id = Poster.create(
       name: "REGRET", 
