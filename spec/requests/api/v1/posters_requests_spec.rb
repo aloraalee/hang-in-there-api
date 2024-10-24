@@ -44,14 +44,53 @@ RSpec.describe "Posters API", type: :request do
       expect(poster).to have_key(:id)
       expect(poster[:id]).to be_an(Integer)
 
-      expect(poster).to have_key(:name)
-      expect(poster[:name]).to be_a(String)
+      expect(poster[:attributes]).to have_key(:name)
+      expect(poster[:attributes][:name]).to be_a(String)
 
-      expect(poster).to have_key(:year)
-      expect(poster[:year]).to be_a(Integer)
+      expect(poster[:attributes]).to have_key(:year)
+      expect(poster[:attributes][:year]).to be_a(Integer)
 
-      expect(poster).to have_key(:price)
-      expect(poster[:price]).to be_a(Float)
+      expect(poster[:attributes]).to have_key(:price)
+      expect(poster[:attributes][:price]).to be_a(Float)
     end
   end
+
+  it "can get one poster by its id" do
+    id = Poster.create(
+      name: "REGRET", 
+      description: "Hard work rarely pays off.", 
+      price: 89.00, 
+      year: 2018, 
+      vintage: true, 
+      img_url: "https://plus.unsplash.com/premium_photo-1661293818249-fddbddf07a5d").id
+
+    get "/api/v1/posters/#{id}"
+
+    poster = JSON.parse(response.body, symbolize_names: true)
+
+    expect(response).to be_successful
+
+    expect(poster[:data]).to have_key(:id)
+    expect(poster[:data][:id]).to be_an(Integer)
+
+    expect(poster[:data][:attributes]).to have_key(:name)
+    expect(poster[:data][:attributes][:name]).to be_a(String)
+
+    expect(poster[:data][:attributes]).to have_key(:description)
+    expect(poster[:data][:attributes][:description]).to be_a(String)
+
+    expect(poster[:data][:attributes]).to have_key(:price)
+    expect(poster[:data][:attributes][:price]).to be_a(Float)
+
+    expect(poster[:data][:attributes]).to have_key(:year)
+    expect(poster[:data][:attributes][:year]).to be_a(Integer)
+
+    expect(poster[:data][:attributes]).to have_key(:vintage)
+    expect(poster[:data][:attributes][:vintage]).to be_in([true, false])
+
+    expect(poster[:data][:attributes]).to have_key(:img_url)
+    expect(poster[:data][:attributes][:img_url]).to be_a(String)
+  end
+
+
 end
