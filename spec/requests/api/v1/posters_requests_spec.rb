@@ -8,7 +8,8 @@ RSpec.describe "Posters API", type: :request do
         price: 89.00,
         year: 2018,
         vintage: true,
-        img_url:  "https://plus.unsplash.com/premium_photo-1661293818249-fddbddf07a5d"
+        img_url:  "https://plus.unsplash.com/premium_photo-1661293818249-fddbddf07a5d",
+        created_at: Time.current - 3.days
         )
       
       @faiure = Poster.create(
@@ -17,7 +18,8 @@ RSpec.describe "Posters API", type: :request do
         price: 68.00,
         year: 2019,
         vintage: true,
-        img_url: "https://images.unsplash.com/photo-1620401537439-98e94c004b0d"
+        img_url: "https://images.unsplash.com/photo-1620401537439-98e94c004b0d",
+        created_at: Time.current - 2.days
       )
       
       @mediocrity = Poster.create(
@@ -27,6 +29,7 @@ RSpec.describe "Posters API", type: :request do
         year: 2021,
         vintage: false,
         img_url: "https://images.unsplash.com/photo-1551993005-75c4131b6bd8",
+        created_at: Time.current - 1.day
       )
     end
 
@@ -180,5 +183,31 @@ RSpec.describe "Posters API", type: :request do
         attributes: include(name: "FAILURE", price: 68.00)
       )
     )
+  end
+
+  it 'can return posters sorted asc' do
+    get '/api/v1/posters', params: { sort: 'asc' }
+
+    expect(response).to be_successful
+
+    posters = JSON.parse(response.body, symbolize_names: true)[:data]
+    expect(posters.count).to eq(3) 
+
+    expect(posters.first[:attributes][:name]).to eq("REGRET")
+    expect(posters.last[:attributes][:name]).to eq("MEDIOCRITY")
+
+  end
+
+  it 'can return posters sorted desc' do
+    get '/api/v1/posters', params: { sort: 'desc' }
+
+    expect(response).to be_successful
+
+    posters = JSON.parse(response.body, symbolize_names: true)[:data]
+    expect(posters.count).to eq(3) 
+
+    expect(posters.last[:attributes][:name]).to eq("REGRET")
+    expect(posters.first[:attributes][:name]).to eq("MEDIOCRITY")
+
   end
 end
