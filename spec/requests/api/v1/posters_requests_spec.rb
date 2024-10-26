@@ -210,4 +210,18 @@ RSpec.describe "Posters API", type: :request do
     expect(posters.first[:attributes][:name]).to eq("MEDIOCRITY")
 
   end
+
+  it 'can return posters based on name characters' do
+    get '/api/v1/posters', params: { name: 'fail' }
+
+    expect(response).to be_successful
+
+    posters = JSON.parse(response.body, symbolize_names: true)[:data]
+    expect(posters.count).to eq(1) 
+    expect(posters).to include(
+      include(
+        attributes: include(name: "FAILURE", price: 68.00)
+      )
+    )
+  end
 end
