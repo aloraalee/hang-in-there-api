@@ -148,4 +148,37 @@ RSpec.describe "Posters API", type: :request do
     expect(Poster.count).to eq(2)
     expect{ Poster.find(@regret.id) }.to raise_error(ActiveRecord::RecordNotFound)
   end
+
+  it 'can return posters based on min price' do
+    get '/api/v1/posters', params: { min_price: 50.00 }
+  
+    expect(response).to be_successful
+  
+    posters = JSON.parse(response.body, symbolize_names: true)[:data]
+    expect(posters.count).to eq(1)
+  
+    expect(posters).to include(
+      include(
+        attributes: include(name: "MEDIOCRITY", price: 127.00)
+      )
+    )
+  end
+  
+
+  it 'can return posters based on max price of 150' do
+    get '/api/v1/posters', params: { max_price: 150 }
+
+    expect(response).to be_successful
+
+    posters = JSON.parse(response.body, symbolize_names: true)[:data]
+    expect(posters.count).to eq(2) 
+    expect(posters).to include(
+      include(
+        attributes: include(name: "REGRET", price: 89.00)
+      ),
+      include(
+        attributes: include(name: "FAILURE", price: 68.00)
+      )
+    )
+  end
 end
