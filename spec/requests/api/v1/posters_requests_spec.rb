@@ -1,5 +1,11 @@
 require 'rails_helper'
 
+SimpleCov.start 'rails' do
+  add_filter 'app/channels/'
+  add_filter 'app/jobs/application_job.rb'
+  add_filter 'app/mailers/application_mailer.rb'
+end
+
 RSpec.describe "Posters API", type: :request do
     before(:each) do
     @regret = Poster.create(
