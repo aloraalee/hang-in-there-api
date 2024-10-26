@@ -2,8 +2,8 @@ class Api::V1::PostersController < ApplicationController
   def index
     posters = Poster.all
 
-    posters = posters.where("price >= 99.99", params[:min_price]) if params[:min_price].present?
-    posters = posters.where("price <= 99.99", params[:max_price]) if params[:max_price].present?
+    posters = posters.where("price >= ?", params[:min_price]) if params[:min_price].present?
+    posters = posters.where("price <= ?", params[:max_price]) if params[:max_price].present?
 
     posters = posters.where("name ILIKE ?", "%#{params[:name]}%") if params[:name].present?
     
