@@ -1,23 +1,30 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/alora/turing_work/2mod/hang_in_there_api/app/models/poster.rb": {
+      "/Users/nvnatasha/turing_work/2mod/hang-in-there-api/app/models/poster.rb": {
         "lines": [
+          1,
+          1,
+          1,
+          1,
+          1,
           1,
           null,
           null
         ]
       },
-      "/Users/alora/turing_work/2mod/hang_in_there_api/app/models/application_record.rb": {
+      "/Users/nvnatasha/turing_work/2mod/hang-in-there-api/app/models/application_record.rb": {
         "lines": [
           1,
           1,
           null
         ]
       },
-      "/Users/alora/turing_work/2mod/hang_in_there_api/app/controllers/api/v1/posters_controller.rb": {
+      "/Users/nvnatasha/turing_work/2mod/hang-in-there-api/app/controllers/api/v1/posters_controller.rb": {
         "lines": [
           1,
+          1,
+          null,
           1,
           6,
           null,
@@ -41,19 +48,72 @@
           1,
           1,
           1,
+          1,
+          null,
+          0,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
           null,
           null,
           1,
           1,
           1,
+          1,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
           null,
           null,
           1,
           1,
           null,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
           null,
           1,
           1,
+          1,
+          1,
+          1,
+          null,
+          0,
+          null,
           null,
           null,
           1,
@@ -61,17 +121,32 @@
           1,
           2,
           null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
+          null,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
           null
         ]
       },
-      "/Users/alora/turing_work/2mod/hang_in_there_api/app/controllers/application_controller.rb": {
+      "/Users/nvnatasha/turing_work/2mod/hang-in-there-api/app/controllers/application_controller.rb": {
         "lines": [
           1,
           null,
           null
         ]
       },
-      "/Users/alora/turing_work/2mod/hang_in_there_api/app/serializers/poster_serializer.rb": {
+      "/Users/nvnatasha/turing_work/2mod/hang-in-there-api/app/serializers/poster_serializer.rb": {
         "lines": [
           1,
           1,
@@ -117,6 +192,6 @@
         ]
       }
     },
-    "timestamp": 1729961718
+    "timestamp": 1734663555
   }
 }

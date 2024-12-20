@@ -65,40 +65,40 @@ RSpec.describe "Posters API", type: :request do
   end
 
   it "can get one poster by its id" do
-    id = Poster.create(
-      name: "REGRET", 
+    single_poster = Poster.create!(
+      name: "NOT REGRET", 
       description: "Hard work rarely pays off.", 
       price: 89.00, 
       year: 2018, 
       vintage: true, 
-      img_url: "https://plus.unsplash.com/premium_photo-1661293818249-fddbddf07a5d").id
+      img_url: "https://plus.unsplash.com/premium_photo-1661293818249-fddbddf07a5d")
 
-    get "/api/v1/posters/#{id}"
+    get "/api/v1/posters/#{single_poster.id}"
 
-    poster = JSON.parse(response.body, symbolize_names: true)
+    poster = JSON.parse(response.body, symbolize_names: true)[:data]
 
     expect(response).to be_successful
 
-    expect(poster[:data]).to have_key(:id)
-    expect(poster[:data][:id]).to be_an(Integer)
+    expect(poster).to have_key(:id)
+    expect(poster[:id]).to be_an(Integer)
 
-    expect(poster[:data][:attributes]).to have_key(:name)
-    expect(poster[:data][:attributes][:name]).to be_a(String)
+    expect(poster[:attributes]).to have_key(:name)
+    expect(poster[:attributes][:name]).to be_a(String)
 
-    expect(poster[:data][:attributes]).to have_key(:description)
-    expect(poster[:data][:attributes][:description]).to be_a(String)
+    expect(poster[:attributes]).to have_key(:description)
+    expect(poster[:attributes][:description]).to be_a(String)
 
-    expect(poster[:data][:attributes]).to have_key(:price)
-    expect(poster[:data][:attributes][:price]).to be_a(Float)
+    expect(poster[:attributes]).to have_key(:price)
+    expect(poster[:attributes][:price]).to be_a(Float)
 
-    expect(poster[:data][:attributes]).to have_key(:year)
-    expect(poster[:data][:attributes][:year]).to be_a(Integer)
+    expect(poster[:attributes]).to have_key(:year)
+    expect(poster[:attributes][:year]).to be_a(Integer)
 
-    expect(poster[:data][:attributes]).to have_key(:vintage)
-    expect(poster[:data][:attributes][:vintage]).to be_in([true, false])
+    expect(poster[:attributes]).to have_key(:vintage)
+    expect(poster[:attributes][:vintage]).to be_in([true, false])
 
-    expect(poster[:data][:attributes]).to have_key(:img_url)
-    expect(poster[:data][:attributes][:img_url]).to be_a(String)
+    expect(poster[:attributes]).to have_key(:img_url)
+    expect(poster[:attributes][:img_url]).to be_a(String)
   end
 
 
@@ -126,9 +126,9 @@ RSpec.describe "Posters API", type: :request do
   end
 
 
-  it "can update an existing song" do
-    id = Poster.create(
-      name: "REGRET", 
+  it "can update an existing poster" do
+    id = Poster.create!(
+      name: "SAD", 
       description: "Hard work rarely pays off.", 
       price: 89.00, 
       year: 2018, 
@@ -137,7 +137,6 @@ RSpec.describe "Posters API", type: :request do
     previous_name = Poster.last.name
     poster_params = { name: "RAINBOWS" }
     headers = {"CONTENT_TYPE" => "application/json"}
-    # We include this header to make sure that these params are passed as JSON rather than as plain text
 
     patch "/api/v1/posters/#{id}", headers: headers, params: JSON.generate({poster: poster_params})
     poster = Poster.find_by(id: id)
@@ -147,7 +146,7 @@ RSpec.describe "Posters API", type: :request do
     expect(poster.name).to eq("RAINBOWS")
   end
 
-  it "can destroy an song" do
+  it "can destroy an poster" do
 
     expect(Poster.count).to eq(3)
 
@@ -180,7 +179,7 @@ RSpec.describe "Posters API", type: :request do
   end
   
 
-  it 'can return posters based on max price of 150' do
+  it 'can return posters based on max price' do
     get '/api/v1/posters', params: { max_price: 100 }
 
     expect(response).to be_successful
